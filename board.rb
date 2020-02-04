@@ -9,4 +9,11 @@ class Board
   def initialize
     @board = Board.generate_board
   end
+
+  def render
+    @board.each do |row|
+      puts row.join(" ")
+    end
+    nil
+  end
 end
