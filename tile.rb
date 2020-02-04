@@ -6,11 +6,11 @@ class Tile
   end
 
   def reveal
-    @revealed = true
+    @revealed = true unless @flagged
   end
-
+  
   def flag
-    @flagged = true
+    @flagged = true unless @revealed
   end
 
   def to_s
