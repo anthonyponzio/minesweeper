@@ -5,11 +5,12 @@ class Board
     # Array.new(3) { Array.new(3) { Tile.new(true) } }
 
     # creating static board for testing
-    [
-      [Tile.new(true), Tile.new, Tile.new],
-      [Tile.new, Tile.new, Tile.new],
-      [Tile.new, Tile.new, Tile.new],
+    board = [
+      [Tile.new(board, true), Tile.new(board), Tile.new(board)],
+      [Tile.new(board), Tile.new(board), Tile.new(board)],
+      [Tile.new(board), Tile.new(board), Tile.new(board)],
     ]
+    board
   end
 
   def initialize
