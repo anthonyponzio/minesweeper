@@ -1,1 +1,1 @@
-# ruby_minesweeper
+# minesweeper
