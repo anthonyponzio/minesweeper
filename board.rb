@@ -2,8 +2,14 @@ require_relative "tile"
 
 class Board
   def self.generate_grid
-    # testing grid filled with mines first
-    Array.new(3) { Array.new(3) { Tile.new(true) } }
+    # Array.new(3) { Array.new(3) { Tile.new(true) } }
+
+    # creating static board for testing
+    [
+      [Tile.new(true), Tile.new, Tile.new],
+      [Tile.new, Tile.new, Tile.new],
+      [Tile.new, Tile.new, Tile.new],
+    ]
   end
 
   def initialize
