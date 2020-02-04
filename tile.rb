@@ -9,6 +9,10 @@ class Tile
     @revealed = true
   end
 
+  def flag
+    @flagged = true
+  end
+
   def to_s
     if @flagged
       "F"
