@@ -16,4 +16,9 @@ class Board
     end
     nil
   end
+
+  def [](pos)
+    row, col = pos
+    @board[row][col]
+  end
 end
