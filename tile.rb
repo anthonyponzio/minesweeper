@@ -8,9 +8,9 @@ class Tile
   def reveal
     @revealed = true unless @flagged
   end
-  
-  def flag
-    @flagged = true unless @revealed
+
+  def toggle_flag
+    @flagged = !@flagged unless @revealed
   end
 
   def to_s
