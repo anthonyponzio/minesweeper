@@ -27,4 +27,12 @@ class Board
     row, col = pos
     @grid[row][col]
   end
+
+  def reveal(pos)
+    self[pos].reveal
+  end
+
+  def toggle_flag(pos)
+    self[pos].toggle_flag
+  end
 end
