@@ -1,20 +1,21 @@
 require_relative "tile"
 
 class Board
-  def self.generate_grid
-    # Array.new(3) { Array.new(3) { Tile.new(true) } }
-
-    # creating static board for testing
-    board = [
-      [Tile.new(board, true), Tile.new(board), Tile.new(board)],
-      [Tile.new(board), Tile.new(board), Tile.new(board)],
-      [Tile.new(board), Tile.new(board), Tile.new(board)],
-    ]
-    board
-  end
+  attr_reader :grid
 
   def initialize
-    @grid = Board.generate_grid
+    @grid = generate_grid
+  end
+
+  def generate_grid
+    # Array.new(3) { Array.new(3) { Tile.new(true) } }
+    grid = []
+    # creating static board for testing
+    3.times do
+      grid << [Tile.new(grid, true), Tile.new(grid), Tile.new(grid)]
+    end
+
+    grid
   end
 
   def render
