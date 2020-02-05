@@ -55,9 +55,3 @@ class Board
     self[pos].toggle_flag
   end
 end
-
-board = Board.new(10)
-
-board.reveal([0,0])
-board.render
-
