@@ -17,10 +17,10 @@ class Board
 
   def initialize(size)
     @grid = Array.new(size) { Array.new(size) }
-    fill_grid(size)
+    fill_grid
   end
 
-  def fill_grid(size)
+  def fill_grid
     grid_indices = (0...size)
     mine_bag = Board.random_mine_bag(size)
 
@@ -35,7 +35,13 @@ class Board
 
   def render
     system("clear")
-    @grid.each { |row| puts row.join(" ") }
+    
+    puts
+    @grid.each_with_index do |row, row_i|
+      border = "  "
+      puts border + row.join(" ") + border
+    end
+    puts
   end
 
   def [](pos)
@@ -58,5 +64,13 @@ class Board
 
   def toggle_flag(pos)
     self[pos].toggle_flag
+  end
+
+  def win?
+    
+  end
+
+  def lose?
+    @grid.any? { |row| row.any?(&:blown_up?) }
   end
 end

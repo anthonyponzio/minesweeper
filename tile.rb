@@ -20,7 +20,7 @@ class Tile
     positions
   end
 
-  attr_reader :mine
+  attr_reader :mine, :revealed
 
   def initialize(board, *args)
     @board = board
@@ -66,6 +66,10 @@ class Tile
     end
     
     "*"
+  end
+
+  def blown_up?
+    @mine && @revealed
   end
 
   def inspect

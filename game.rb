@@ -2,7 +2,7 @@ require_relative "board"
 
 class Game
   def initialize
-    @board = Board.new(10)
+    @board = Board.new(20)
   end
 
   def valid_command?(input)
@@ -48,12 +48,16 @@ class Game
   end
 
   def run
-    until false
+    until game_over?
       @board.render
       make_move(*get_input)
     end
 
     puts "Game over!"
+  end
+
+  def game_over?
+    @board.win? || @board.lose?
   end
 end
 
