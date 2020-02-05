@@ -40,17 +40,17 @@ class Tile
     row, col = pos
     @adjacent_positions = []
 
-    validate_i = Proc.new do |i, other_i|
-      i != other_i &&
-      (0...@grid.size).include?(i)
+    valid_adj_pos = Proc.new do |adj_pos|
+      adj_pos != pos &&
+      adj_pos.all? { |i| (0...@grid.size).include?(i) }
     end
 
-    adj_rows = (row-1..row+1).to_a.select { |i| validate_i.call(i, row) }
-    adj_cols = (col-1..col+1).to_a.select { |i| validate_i.call(i, col) }
+    adj_rows, adj_cols = (row-1..row+1), (col-1..col+1)
 
     adj_rows.each do |adj_row|
       adj_cols.each do |adj_col|
-        @adjacent_positions << [adj_row, adj_col]
+        adj_pos = [adj_row, adj_col]
+        @adjacent_positions << [adj_row, adj_col] if valid_adj_pos.call(adj_pos)
       end
     end
 
