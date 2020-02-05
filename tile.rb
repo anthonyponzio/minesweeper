@@ -57,15 +57,11 @@ class Tile
 
   def to_s
     if @flagged
-      "F"
+      return "F"
     elsif @revealed
-      if @mine
-        "M"
-      else
-        neighbor_bomb_count.to_s
-      end
-    else
-      "*"
+      return @mine ? "M" : neighbor_bomb_count.to_s
     end
+    
+    "*"
   end
 end
