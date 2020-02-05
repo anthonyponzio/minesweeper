@@ -1,7 +1,6 @@
 require 'remedy'
 include Remedy
 
-
 class Cursor
   def initialize(grid_size)
     @interaction = Interaction.new

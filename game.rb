@@ -1,4 +1,5 @@
 require_relative "board"
+require_relative "cursor"
 
 class Game
   def initialize
