@@ -24,6 +24,9 @@ class Tile
     end
   end
 
+  def inspect
+  end
+
   def pos
     return @pos if @pos
     pos = nil
@@ -55,5 +58,12 @@ class Tile
     end
 
     @adjacent_positions
+  end
+
+  def neighbors
+    return @neighbors if @neighbors
+
+    @neighbors = adjacent_positions.map { |(row, col)| @grid[row][col] }
+    @neighbors
   end
 end

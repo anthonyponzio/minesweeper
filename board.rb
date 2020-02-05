@@ -19,9 +19,7 @@ class Board
   end
 
   def render
-    @grid.each do |row|
-      puts row.join(" ")
-    end
+    @grid.each { |row| puts row.join(" ") }
     nil
   end
 
@@ -41,4 +39,4 @@ end
 
 board = Board.new
 
-p board[[2,2]].adjacent_positions
+puts board[[0,0]].neighbors
