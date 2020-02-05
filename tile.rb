@@ -57,7 +57,6 @@ class Tile
     { pos: @pos, string_val: self.to_s }
   end
 
-
   def self.adjacent_positions(pos, grid_size)
     row, col = pos
     positions = []

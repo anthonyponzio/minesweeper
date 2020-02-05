@@ -37,7 +37,6 @@ class Game
     [command, pos]  
   end
 
-
   def make_move(command, pos)
     case command
     when "f", "F"
@@ -47,6 +46,10 @@ class Game
     end
   end
 
+  def game_over?
+    @board.lose? || @board.win?
+  end
+
   def run
     until game_over?
       @board.render
@@ -54,10 +57,6 @@ class Game
     end
 
     puts "Game over!"
-  end
-
-  def game_over?
-    @board.lose? || @board.win?
   end
 end
 
