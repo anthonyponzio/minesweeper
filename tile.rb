@@ -22,10 +22,8 @@ class Tile
 
   attr_reader :mine, :revealed
 
-  def initialize(board, *args)
-    @board = board
-    @grid = @board.grid
-    @pos, @mine = args
+  def initialize(*args)
+    @grid, @pos, @mine = args
     @flagged = false
     @revealed = false
   end
@@ -33,7 +31,6 @@ class Tile
   def reveal
     unless @flagged || @revealed
       @revealed = true
-      @board.render
       reveal_neighbors
     end
   end

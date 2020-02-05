@@ -29,7 +29,7 @@ class Board
       grid_indices.each do |col|
         render
         pos = [row, col]
-        self[pos] = Tile.new(self, pos, mine_bag.pop)
+        self[pos] = Tile.new(@grid, pos, mine_bag.pop)
       end
     end
   end
