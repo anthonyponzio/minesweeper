@@ -29,7 +29,16 @@ class Tile
   end
 
   def reveal
-    @revealed = true unless @flagged
+    unless @flagged || @revealed
+      @revealed = true
+      reveal_neighbors
+    end
+  end
+
+  def reveal_neighbors
+    if neighbor_bomb_count == 0
+      neighbors.each { |neighbor_tile| neighbor_tile.reveal }
+    end
   end
 
   def toggle_flag

@@ -56,3 +56,8 @@ class Board
   end
 end
 
+board = Board.new(10)
+
+board.reveal([0,0])
+board.render
+
