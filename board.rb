@@ -45,7 +45,11 @@ class Board
   def []=(pos, value)
     row, col = pos
     @grid[row][col] = value
-  end 
+  end
+  
+  def size
+    @grid.size
+  end
 
   def reveal(pos)
     self[pos].reveal
