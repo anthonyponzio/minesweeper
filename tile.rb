@@ -22,10 +22,8 @@ class Tile
 
   attr_reader :mine
 
-  def initialize(grid, pos, mine=false)
-    @grid = grid
-    @pos = pos
-    @mine = mine
+  def initialize(*args)
+    @grid, @pos, @mine = args
     @flagged = false
     @revealed = false
   end
@@ -54,12 +52,7 @@ class Tile
   end
 
   def inspect
-    {
-      pos: @pos,
-      mine: @mine,
-      flagged: @flagged,
-      revealed: @revealed,
-    }
+    { pos: @pos, string_val: self.to_s }
   end
 
   def to_s
