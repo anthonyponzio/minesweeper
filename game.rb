@@ -2,7 +2,7 @@ require_relative "board"
 
 class Game
   def initialize
-    @board = Board.new(20)
+    @board = Board.new(20, 15)
   end
 
   def valid_command?(input)

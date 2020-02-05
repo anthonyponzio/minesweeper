@@ -1,9 +1,9 @@
 require_relative "tile"
 
 class Board
-  def self.random_mine_bag(size)
+  def self.random_mine_bag(size, mine_count)
     mine_bag = []
-    mine_count = size
+    mine_count = mine_count
 
     (size * size).times do
       mine_bag << (mine_count > 0)
@@ -13,17 +13,18 @@ class Board
     mine_bag.shuffle!
   end
 
-  attr_reader :grid
+  attr_reader :grid, :mine_count
 
-  def initialize(size)
-    @game_lost = false
+  def initialize(size, mine_count)
+    @mine_count = mine_count
     @grid = Array.new(size) { Array.new(size) }
     fill_grid
+    @game_lost = false
   end
 
   def fill_grid
     grid_indices = (0...size)
-    mine_bag = Board.random_mine_bag(size)
+    mine_bag = Board.random_mine_bag(size, mine_count)
 
     grid_indices.each do |row|
       grid_indices.each do |col|
