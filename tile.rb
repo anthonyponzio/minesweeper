@@ -49,13 +49,10 @@ class Tile
     @neighbors ||= Tile
       .adjacent_positions(@pos, @grid.size)
       .map { |(row, col)| @grid[row][col] }
-
-    @neighbors
   end
 
   def neighbor_bomb_count
     @neighbor_bomb_count ||= neighbors.count { |tile| tile.mine }
-    @neighbor_bomb_count
   end
 
   def to_s
