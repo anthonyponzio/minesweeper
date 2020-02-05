@@ -1,3 +1,4 @@
+require "colorize"
 require_relative "tile"
 
 class Board
@@ -28,20 +29,25 @@ class Board
 
     grid_indices.each do |row|
       grid_indices.each do |col|
-        render
+        render([0,0])
         pos = [row, col]
         self[pos] = Tile.new(@grid, pos, mine_bag.pop)
       end
     end
   end
 
-  def render
+  def render(cursor_pos)
     system("clear")
     
     puts
     @grid.each_with_index do |row, row_i|
       border = "  "
-      puts border + row.join(" ") + border
+      line = row.map.with_index do |tile, col_i|
+        next tile.to_s unless [row_i, col_i] == cursor_pos
+        tile.to_s.colorize(:background => :red)
+      end
+
+      puts border + line.join(" ") + border
     end
     puts
   end
