@@ -3,19 +3,24 @@ require_relative "tile"
 class Board
   attr_reader :grid
 
-  def initialize
-    @grid = generate_grid
+  def initialize(grid_size)
+    @grid = Array.new(grid_size) { Array.new(grid_size) }
+    fill_grid(grid_size + 1)
   end
 
-  def generate_grid
-    # Array.new(3) { Array.new(3) { Tile.new(true) } }
-    grid = []
-    # creating static board for testing
-    3.times do
-      grid << [Tile.new(grid, true), Tile.new(grid), Tile.new(grid)]
-    end
+  def fill_grid(mine_count)
+    grid_range = (0...@grid.size)
+    grid_range.each do |row|
+      grid_range.each do |col|
+        if mine_count > 0
+          is_mine = [true, false].sample
+          mine_count -= 1 if is_mine
+        end
 
-    grid
+        pos = [row, col]
+        self[pos] = Tile.new(@grid, pos, is_mine)
+      end
+    end
   end
 
   def render
@@ -28,6 +33,11 @@ class Board
     @grid[row][col]
   end
 
+  def []=(pos, value)
+    row, col = pos
+    @grid[row][col] = value
+  end 
+
   def reveal(pos)
     self[pos].reveal
   end
@@ -37,6 +47,3 @@ class Board
   end
 end
 
-board = Board.new
-
-puts board[[0,0]].neighbors
