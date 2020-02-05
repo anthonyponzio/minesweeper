@@ -20,6 +20,7 @@ class Tile
     positions
   end
 
+  attr_reader :mine
 
   def initialize(grid, pos, mine=false)
     @grid = grid
@@ -37,14 +38,19 @@ class Tile
     @flagged = !@flagged unless @revealed
   end
 
-  def to_s
-    if @flagged
-      "F"
-    elsif @revealed
-      @mine ? "M" : "_"
-    else
-      "*"
-    end
+  def neighbors
+    return @neighbors if @neighbors
+
+    @neighbors = Tile
+      .adjacent_positions(@pos, @grid.size)
+      .map { |(row, col)| @grid[row][col] }
+
+    @neighbors
+  end
+
+  def neighbor_bomb_count
+    @neighbor_bomb_count ||= neighbors.count { |tile| tile.mine }
+    @neighbor_bomb_count
   end
 
   def inspect
@@ -56,13 +62,17 @@ class Tile
     }
   end
 
-  def neighbors
-    return @neighbors if @neighbors
-
-    @neighbors = Tile
-      .adjacent_positions(@pos, @grid.size)
-      .map { |(row, col)| @grid[row][col] }
-
-    @neighbors
+  def to_s
+    if @flagged
+      "F"
+    elsif @revealed
+      if @mine
+        "M"
+      else
+        neighbor_bomb_count.to_s
+      end
+    else
+      "*"
+    end
   end
 end
