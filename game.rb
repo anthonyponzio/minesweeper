@@ -57,7 +57,7 @@ class Game
   end
 
   def game_over?
-    @board.win? || @board.lose?
+    @board.lose? || @board.win?
   end
 end
 

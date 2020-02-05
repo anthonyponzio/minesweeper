@@ -16,6 +16,7 @@ class Board
   attr_reader :grid
 
   def initialize(size)
+    @game_lost = false
     @grid = Array.new(size) { Array.new(size) }
     fill_grid
   end
@@ -59,7 +60,9 @@ class Board
   end
 
   def reveal(pos)
-    self[pos].reveal
+    tile = self[pos]
+    tile.reveal
+    @game_lost = true if tile.blown_up?
   end
 
   def toggle_flag(pos)
@@ -67,10 +70,12 @@ class Board
   end
 
   def win?
-    
+    @grid.all? do |row|
+      row.all? { |tile| tile.mine ? !tile.blown_up? : tile.revealed }
+    end
   end
 
   def lose?
-    @grid.any? { |row| row.any?(&:blown_up?) }
+    @game_lost
   end
 end
