@@ -34,8 +34,19 @@ class Tile
     @pos
   end
 
-  def neighbors
-    # find self in board and find neighbors (all tiles around tile)
-    @pos
+  def adjacent_positions
+    row, col = @pos
+    positions = []
+
+    (row-1..row+1).each do |row_i|
+      (col-1..col+1).each do |col_i|
+        result << [row_i, col_i]
+      end
+    end
+
+    positions.select do |adj_pos|
+      next false if adj_pos == @pos
+      adj_pos.none? { |i| (0...@grid.size).include?(i) }
+    end
   end
 end

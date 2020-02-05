@@ -38,3 +38,7 @@ class Board
     self[pos].toggle_flag
   end
 end
+
+board = Board.new
+p board[[0,0]].pos # => [0,0]
+p board[[0,0]].adjacent_positions # => [[0,1], [1,0], [1,1]]
