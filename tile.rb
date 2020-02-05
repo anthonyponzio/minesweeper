@@ -35,18 +35,16 @@ class Tile
   end
 
   def adjacent_positions
-    row, col = @pos
+    row, col = pos
     positions = []
 
     (row-1..row+1).each do |row_i|
-      (col-1..col+1).each do |col_i|
-        positions << [row_i, col_i]
-      end
+      (col-1..col+1).each { |col_i| positions << [row_i, col_i] }
     end
 
     positions.select do |adj_pos|
-      next false if adj_pos == @pos
-      adj_pos.none? { |i| (0...@grid.size).include?(i) }
+      next false if adj_pos == pos
+      adj_pos.all? { |i| (0...@grid.size).include?(i) }
     end
   end
 end
