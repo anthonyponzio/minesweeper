@@ -5,20 +5,29 @@ class Board
 
   def initialize(grid_size)
     @grid = Array.new(grid_size) { Array.new(grid_size) }
-    fill_grid(grid_size + 1)
+    fill_grid(grid_size)
   end
 
   def fill_grid(mine_count)
-    grid_range = (0...@grid.size)
-    grid_range.each do |row|
-      grid_range.each do |col|
-        if mine_count > 0
-          is_mine = [true, false].sample
-          mine_count -= 1 if is_mine
-        end
+    size = @grid.size
+    grid_indices = (0...size)
+    mine_bag = []
 
+    (size * size).times do
+      if mine_count > 0
+        mine_bag << true
+        mine_count -= 1
+      else
+        mine_bag << false
+      end
+    end
+
+    mine_bag.shuffle!
+
+    grid_indices.each do |row|
+      grid_indices.each do |col|
         pos = [row, col]
-        self[pos] = Tile.new(@grid, pos, is_mine)
+        self[pos] = Tile.new(@grid, pos, mine_bag.pop)
       end
     end
   end
