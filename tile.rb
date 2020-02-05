@@ -46,9 +46,7 @@ class Tile
   end
 
   def neighbors
-    return @neighbors if @neighbors
-
-    @neighbors = Tile
+    @neighbors ||= Tile
       .adjacent_positions(@pos, @grid.size)
       .map { |(row, col)| @grid[row][col] }
 
