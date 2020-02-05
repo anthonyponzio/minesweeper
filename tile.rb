@@ -51,10 +51,6 @@ class Tile
     @neighbor_bomb_count
   end
 
-  def inspect
-    { pos: @pos, string_val: self.to_s }
-  end
-
   def to_s
     if @flagged
       return "F"
@@ -63,5 +59,9 @@ class Tile
     end
     
     "*"
+  end
+
+  def inspect
+    { pos: @pos, string_val: self.to_s }
   end
 end
