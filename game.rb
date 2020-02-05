@@ -41,9 +41,9 @@ class Game
   def make_move(command, pos)
     case command
     when "f", "F"
-          
+      @board.toggle_flag(pos)
     when "r", "R"
-      
+      @board.reveal(pos)
     end
   end
 
