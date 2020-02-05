@@ -1,28 +1,28 @@
 require_relative "tile"
 
 class Board
-  attr_reader :grid
-
-  def initialize(grid_size)
-    @grid = Array.new(grid_size) { Array.new(grid_size) }
-    fill_grid(grid_size)
-  end
-
-  def fill_grid(mine_count)
-    size = @grid.size
-    grid_indices = (0...size)
+  def self.random_mine_bag(size)
     mine_bag = []
+    mine_count = size
 
     (size * size).times do
-      if mine_count > 0
-        mine_bag << true
-        mine_count -= 1
-      else
-        mine_bag << false
-      end
+      mine_bag << (mine_count > 0)
+      mine_count -= 1
     end
 
     mine_bag.shuffle!
+  end
+
+  attr_reader :grid
+
+  def initialize(size)
+    @grid = Array.new(size) { Array.new(size) }
+    fill_grid(size)
+  end
+
+  def fill_grid(size)
+    grid_indices = (0...size)
+    mine_bag = Board.random_mine_bag(size)
 
     grid_indices.each do |row|
       grid_indices.each do |col|
