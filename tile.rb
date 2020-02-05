@@ -35,16 +35,25 @@ class Tile
   end
 
   def adjacent_positions
+    return @adjacent_positions if @adjacent_positions
+
     row, col = pos
-    positions = []
+    @adjacent_positions = []
 
-    (row-1..row+1).each do |row_i|
-      (col-1..col+1).each { |col_i| positions << [row_i, col_i] }
+    validate_i = Proc.new do |i, other_i|
+      i != other_i &&
+      (0...@grid.size).include?(i)
     end
 
-    positions.select do |adj_pos|
-      next false if adj_pos == pos
-      adj_pos.all? { |i| (0...@grid.size).include?(i) }
+    adj_rows = (row-1..row+1).to_a.select { |i| validate_i.call(i, row) }
+    adj_cols = (col-1..col+1).to_a.select { |i| validate_i.call(i, col) }
+
+    adj_rows.each do |adj_row|
+      adj_cols.each do |adj_col|
+        @adjacent_positions << [adj_row, adj_col]
+      end
     end
+
+    @adjacent_positions
   end
 end
