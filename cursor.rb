@@ -25,10 +25,8 @@ class Cursor
       when :d, :right
         col += 1
       when :space
-        puts "revealing at #{@cursor_pos}"
         return ["reveal", @cursor_pos]
       when :f
-        puts "flagging at #{@cursor_pos}"
         return ["flag", @cursor_pos]
       end 
       update_cursor_pos([row, col], render_prc)
