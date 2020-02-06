@@ -29,27 +29,10 @@ class Board
 
     grid_indices.each do |row|
       grid_indices.each do |col|
-        render([0,0])
         pos = [row, col]
         self[pos] = Tile.new(@grid, pos, mine_bag.pop)
       end
     end
-  end
-
-  def render(cursor_pos)
-    system("clear")
-    
-    puts
-    @grid.each_with_index do |row, row_i|
-      border = "  "
-      line = row.map.with_index do |tile, col_i|
-        next tile.to_s unless [row_i, col_i] == cursor_pos
-        tile.to_s.colorize(:background => :red)
-      end
-
-      puts border + line.join(" ") + border
-    end
-    puts
   end
 
   def [](pos)
@@ -77,12 +60,27 @@ class Board
   end
 
   def win?
-    @grid.all? do |row|
+    won = @grid.all? do |row|
       row.all? { |tile| tile.mine ? !tile.blown_up? : tile.revealed }
     end
+    puts "You Won!" if won
+    won
   end
 
   def lose?
+    puts "You lose!" if @game_lost
     @game_lost
+  end
+
+  def render(cursor_pos)
+    system("clear")
+    @grid.each_with_index do |row, row_i|
+      border = "  "
+      line = row.map.with_index do |tile, col_i|
+        next tile.to_s unless [row_i, col_i] == cursor_pos
+        tile.to_s.colorize(:background => :red)
+      end
+      puts border + line.join(" ") + border
+    end
   end
 end

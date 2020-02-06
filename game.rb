@@ -21,10 +21,11 @@ class Game
   end
 
   def run
+    render_prc = Proc.new { |pos| @board.render(pos) }
+    
     until game_over?
-      render_prc = Proc.new { |cursor_pos| @board.render(cursor_pos) }
-
       render_prc.call(@cursor.cursor_pos)
+
       inputs = @cursor.input_loop(render_prc)
       make_move(*inputs)
     end
